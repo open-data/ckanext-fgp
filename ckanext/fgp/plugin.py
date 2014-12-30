@@ -3,8 +3,8 @@ __author__ = 'Ross Thompson'
 import ckan.plugins as plugins
 from pylons import config as c
 
-WET_URL_OPTION = 'wet_theme.url'
-WET_URL_DEFAULT = 'http://localhost/'
+FGP_URL_OPTION = 'fgp.ramp_base_url'
+FGP_URL_DEFAULT = 'http://localhost/'
 
 class FgpPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.ITemplateHelpers)
@@ -22,7 +22,7 @@ class FgpPlugin(plugins.SingletonPlugin):
 
     # Helper functions
     def fgp_url(self):
-        return str(c.get(WET_URL_OPTION, WET_URL_DEFAULT))
+        return str(c.get(FGP_URL_OPTION, FGP_URL_DEFAULT))
 
     #IRoutes
     def before_map(self, map):
