@@ -1,10 +1,12 @@
 {% extends "page.html" %}
 
+{% set ramp_server = h.fgp_url() %}
+
 {% block custom_wet_css %}
   <script>dataLayer1 = [];</script>
   <!-- RAMP CSS Start -->
-  <link href="css/lib/lib.min.css" rel="stylesheet" type="text/css">
-  <link href="css/theme.less.min.css" rel="stylesheet" type="text/css">
+  <link href="{{ramp_server}}/css/lib/lib.min.css" rel="stylesheet" type="text/css">
+  <link href="{{ramp_server}}/css/theme.less.min.css" rel="stylesheet" type="text/css">
   <!-- RAMP CSS End --><!-- EsriCSSStart --><!--<link media="screen" href="http://js.arcgis.com/3.10/js/esri/css/esri.css"
       rel="stylesheet" rel="stylesheet">-->
   <link media="screen" href="http://js.arcgis.com/3.10/js/dojo/dijit/themes/tundra/tundra.css" type="text/css"
@@ -15,15 +17,7 @@
 {% endblock %}
 
 {% block breadcrumb_content %}
-  {%- if client_lang == 'fr' -%}
-    <li><a href="{% url_for '/doc', locale='fr' %}">{{ _('Geospatial Viewer') }}</a></li>
-    <li>{{ dataset }}</li>
-  {%- else -%}
-    <li><a href="{% url_for '/doc', locale='en' %}?q=">{{ _('Geospatial Viewer') }}</a></li>
-    <li>{{ dataset }}</li>
-  {%- endif -%}
-
-  {#<li>{% link_for _('Search Data'), controller='package', action='search', highlight_actions = 'new index' %}</li>#}
+  <li>{{ _('Geospatial Viewer') }}</li>
 {% endblock %}
 
 {% block content %}
@@ -37,7 +31,7 @@
       <ul id="map-toolbar" class="text-right">
         <li id="basemapControls" class="pull-left map-toolbar-item" style="display: inline">
           <button class="btn btn-xs map-toolbar-item-button button-none" id="baseMapToggle">
-            <span>Topographic</span><span class="separator"></span></button>
+            <span>{{ _('Topographic') }}</span><span class="separator"></span></button>
           <div id="basemapGallery"></div>
         </li>
         <li class="map-toolbar-item">
@@ -88,7 +82,7 @@
         </li>
         <li class="map-toolbar-item">
           <button class="btn btn-xs map-toolbar-item-button button-none" id="helpToggle"><i
-              class="fa fa-question"></i><span class="on-right">Help</span></button>
+              class="fa fa-question"></i><span class="on-right">{{ _('Help') }}</span></button>
           <div id="help-section-container" class="map-toolbar-item-container">
             <div id="help-section-shadow" class="">
               <div id="help-section" class="text-left">
@@ -99,20 +93,17 @@
                     <details class="mrgn-tp-md">
                       <summary class="h5 mrgn-tp-0 mrgn-bttm-md">{{ _('Navigation Controls') }}</summary>
                       <div>
-                        <div class="helpSectionBody"><p>Navigation controls is used for changing the viewing extent of
-                          the map; the datagrid updates accordingly to what's viewable in the current extent.</p>
+                        <div class="helpSectionBody"><p>{{ _("Navigation controls is used for changing the viewing extent of the map; the datagrid updates accordingly to what's viewable in the current extent.") }}</p>
 
                           <h3 class="h5">{{ _('Usage') }}</h3>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/help_navigation_toolbar.png"
+                                                                           href="{{ramp_server}}/assets/images/help/{{ _('en') }}/help_navigation_toolbar.png"
                                                                            title="Map navigation controls"><img
-                              src="./assets/images/help/en/help_navigation_toolbar.png" alt="Map navigation controls"
+                              src="{{ramp_server}}/assets/images/help/{{ _('en') }}/help_navigation_toolbar.png" alt="{{ _('Map navigation controls') }}"
                               class="image-actual"></a>
                             <figcaption class="caption text-right"><p class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">{{ _('Map navigation controls') }}</p></figcaption>
                           </figure>
-                          <p>Click Pan North/South/East/West to move the map in that particular direction.<br>Click
-                            Canada View to view map at its full extent.<br>Click Zoom In/Out to change the map
-                            extent.<br>Click and drag the Zoom Slider to zoom in/out.<br></p></div>
+                          <p>{{ _('Click Pan North/South/East/West to move the map in that particular direction.<br>Click Canada View to view map at its full extent.<br>Click Zoom In/Out to change the map extent.<br>Click and drag the Zoom Slider to zoom in/out.<br>') }}</p></div>
                       </div>
                     </details>
                     <div class="clearfix"></div>
@@ -120,20 +111,19 @@
                     <details class="mrgn-tp-0">
                       <summary class="h5 mrgn-tp-0 mrgn-bttm-md">{{ _('Basemaps') }}</summary>
                       <div>
-                        <div class="helpSectionBody"><p>The Basemap selector is used to modify the underlying basemap to
-                          provide a variety of geographical contexts.</p>
-
+                        <div class="helpSectionBody"><p>
+                          {{ _('The Basemap selector is used to modify the underlying basemap to provide a variety of geographical contexts.') }}</p>
                           <h3 class="h5">{{ _('Usage') }}</h3>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/help_basemaps.png"
+                                                                           href="{{ramp_server}}/assets/images/help/{{ _('en') }}/help_basemaps.png"
                                                                            title="Basemap selector widget"><img
-                              src="./assets/images/help/en/help_basemaps.png" alt="Basemap selector widget"
+                              src="{{ramp_server}}/assets/images/help/{{ _('en') }}/help_basemaps.png" alt="Basemap selector widget"
                               class="image-actual"></a>
                             <figcaption class="caption text-right"><p
                                 class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">
                               {{ _('Basemap selector widget') }}</p></figcaption>
                           </figure>
-                          <p>From the dropdown, select the basemap of your choice and the map display will update.</p>
+                          <p>{{ _('From the dropdown, select the basemap of your choice and the map display will update.') }}</p>
                         </div>
                       </div>
                     </details>
@@ -142,12 +132,12 @@
 <summary class="h5 mrgn-tp-0 mrgn-bttm-md">Add Layer from Web</summary>
 <div>
     <div class="helpSectionBody">
-        <p>Adding a layer from web will allow you to reference data from publicly accessible mapping services as a view-only copy and compare it to other layers available inside the mapping application.</p>
+        <p>{{ _('Adding a layer from web will allow you to reference data from publicly accessible mapping services as a view-only copy and compare it to other layers available inside the mapping application.') }}</p>
         <h3 class="h5">Usage</h3>
 
         <figure class="thumbnail col-md-4 pull-right">
-            <a class="wb-lbx" href="./assets/images/help/en/help_addlayer.png" title="Add layer widget">
-                <img src="./assets/images/help/en/help_addlayer.png" alt="Add layer widget" class="" />
+            <a class="wb-lbx" href="{{ramp_server}}/assets/images/help/{{ _('en') }}/help_addlayer.png" title="{{ _('Add layer widget') }}">
+                <img src="{{ramp_server}}/assets/images/help/{{ _('en') }}/help_addlayer.png" alt="Add layer widget" class="" />
             </a>
             <figcaption class="caption text-right">
             <p class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">Add layer widget</p>
@@ -162,25 +152,24 @@
                     <details class="mrgn-tp-0">
                       <summary class="h5 mrgn-tp-0 mrgn-bttm-md">{{ _('Get Link') }}</summary>
                       <div>
-                        <div class="helpSectionBody"><p>Get Link is used to generate a shareable URL of the current map
-                          state with selected datasets.</p>
+                        <div class="helpSectionBody"><p>{{ _('Get Link is used to generate a shareable URL of the current map state with selected datasets.') }}</p>
 
-                          <h3 class="h5">Usage</h3>
+                          <h3 class="h5">{{ _('Usage') }}</h3>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/help_getlink.png"
+                                                                           href="{{ramp_server}}/assets/images/help/{{ _('en') }}/help_getlink.png"
                                                                            title="Get Link widget"><img
-                              src="./assets/images/help/en/help_getlink.png" alt="Get Link widget" class="image-actual"></a>
+                              src="{{ramp_server}}/assets/images/help/{{ _('en') }}/help_getlink.png" alt="{{ _('Get Link widget') }}" class="image-actual"></a>
                             <figcaption class="caption text-right"><p
                                 class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">
                               {{ _('Get Link widget') }}</p></figcaption>
                           </figure>
                           <h4>{{ _('Short link') }}</h4>
 
-                          <p>Select this link to use Google's URL shortening service to generate a concise and easily
-                            shareable link to the current state of the RAMP map viewer.</p><h4>{{ _('Email') }}</h4>
+                          {% trans %}<p>Select this link to use Google's URL shortening service to generate a concise and easily
+                            shareable link to the current state of the RAMP map viewer.</p><h4>Email</h4>
 
                           <p>Select this link to open a new email in your default mail client, with the URL contained in
-                            the body for convenient sharing.</p></div>
+                            the body for convenient sharing.</p>{% endtrans %}</div>
                       </div>
                     </details>
                     <div class="clearfix"></div>
@@ -188,33 +177,30 @@
                     <details class="mrgn-tp-0">
                       <summary class="h5 mrgn-tp-0 mrgn-bttm-md">{{ _('Full Screen') }}</summary>
                       <div>
-                        <div class="helpSectionBody"><p>Full Screen is used to collapse the departmental headers and
-                          footers to provide larger screen space for mapping.</p>
+                        <div class="helpSectionBody"><p>{{ _('Full Screen is used to collapse the departmental headers and footers to provide larger screen space for mapping.') }}</p>
 
                           <h3 class="h5">{{ _('Usage') }}</h3>
 
-                          <p>Click the Full Screen button in the toolbar to hide departmental header and footer
-                            information. Select the Show Headers link to restore to default view.</p></div>
+                          <p>{{ _('Click the Full Screen button in the toolbar to hide departmental header and footer information. Select the Show Headers link to restore to default view.') }}</p></div>
                       </div>
                     </details>
                     <div class="clearfix"></div>
                     <!-- fullScreen ENDS --><!-- datasets BEGINS -->
                     <details class="mrgn-tp-0">
-                      <summary class="h5 mrgn-tp-0 mrgn-bttm-md">Data Sets</summary>
+                      <summary class="h5 mrgn-tp-0 mrgn-bttm-md">{{ _('Data Sets') }}</summary>
                       <div>
-                        <div class="helpSectionBody"><p>The Datasets tab lists the layers available to display in the
-                          map. Feature layers also display in the data grid. The Datasets tab also serves as a map
-                          legend.</p>
+                        <div class="helpSectionBody"><p>{{ _('The Datasets tab lists the layers available to display in the map. Feature layers also display in the data grid. The Datasets tab also serves as a map legend.') }}</p>
 
                           <h3 class="h5">Usage</h3><h4>{{ _('Layer Types') }}</h4>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/help_datasets.png"
+                                                                           href="{{ramp_server}}/assets/images/help/{{ _('en') }}/help_datasets.png"
                                                                            title="Data Sets"><img
-                              src="./assets/images/help/en/help_datasets.png" alt="Data Sets" class=""></a>
+                              src="{{ramp_server}}/assets/images/help/{{ _('en') }}/help_datasets.png" alt="{{ _('Data Sets') }}" class=""></a>
                             <figcaption class="caption text-right"><p
                                 class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">
                               {{ _('Datasets') }}</p></figcaption>
                           </figure>
+                          {% trans %}
                           <p>There are three types of layers that can reside in the Dataset tab.
                           <ul>
                             <li>Feature layers represent data that can be interacted with on the map, and viewed in the
@@ -227,39 +213,39 @@
                               interaction on the map, and do not show in the data grid.
                             </li>
                           </ul>
-                          </p><h4>{{ _('Layer Visibility') }}</h4>
+                          </p>{% endtrans %}
+                          <h4>{{ _('Layer Visibility') }}</h4>
 
-                          <p>Select the "eye" icon next to a dataset name to toggle the layer on or off.</p><h4>Layer
-                            Bounding Box</h4>
+                          <p>{{ _('Select the "eye" icon next to a dataset name to toggle the layer on or off.') }}</p>
+                          <h4>{{ _('Layer Bounding Box') }}</h4>
 
-                          <p>Use the "cross hatch" icon to the right of the eye icon to display the bounding box of the
-                            dataset.</p>
+                          <p>{{ _('Use the "cross hatch" icon to the right of the eye icon to display the bounding box of the dataset.') }}</p>
 
                           <div class="clearfix"></div>
                           <h4>{{ _('Layer Reordering') }}</h4>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/help_datasets_reordering.png"
-                                                                           title="Layer Reordering"><img
-                              src="./assets/images/help/en/help_datasets_reordering.png" alt="Layer Reordering"
+                                                                           href="{{ramp_server}}/assets/images/help/{{ _('en') }}/help_datasets_reordering.png"
+                                                                           title="{{ _('Layer Reordering') }}"><img
+                              src="{{ramp_server}}/assets/images/help/{{ _('en') }}/help_datasets_reordering.png" alt="{{ _('Layer Reordering') }}"
                               class=""></a>
                             <figcaption class="caption text-right"><p
                                 class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">
                               {{ _('Layer Reordering') }}</p></figcaption>
                           </figure>
-                          <p>Click and drag the 6 dots to the left of the dataset up or down to re-order the layers on
+                          {% trans %}<p>Click and drag the 6 dots to the left of the dataset up or down to re-order the layers on
                             the map interface.</p>
 
                           <p>While all layers can be re-ordered, WMS layers and Feature / Static layers may not be mixed
                             together. WMS layers will always be displayed beneath the other layers, but may be
-                            re-ordered amongst other WMS layers.</p>
+                            re-ordered amongst other WMS layers.</p>{% endtrans %}
 
                           <div class="clearfix"></div>
                           <h4>{{ _('Layer Metadata') }}</h4>
 
-                          <p>Select the "Metadata" link to display relevant metadata for that source in a collapsible
+                          {% trans %}<p>Select the "Metadata" link to display relevant metadata for that source in a collapsible
                             Info Panel.</p><h4>Layer Settings</h4>
 
-                          <p>Select the "Settings" link to change layer's opacity using the slider control.</p></div>
+                          <p>Select the "Settings" link to change layer's opacity using the slider control.</p>{% endtrans %}</div>
                       </div>
                     </details>
                     <div class="clearfix"></div>
@@ -267,14 +253,13 @@
                     <details class="mrgn-tp-0">
                       <summary class="h5 mrgn-tp-0 mrgn-bttm-md">{{ _('Summary Grid') }}</summary>
                       <div>
-                        <div class="helpSectionBody"><p>The Summary Grid lists basic information for all the features
-                          that is visible in the current map extent.</p>
+                        <div class="helpSectionBody"><p>{{ _('The Summary Grid lists basic information for all the features that is visible in the current map extent.') }}</p>
 
                           <h3 class="h5">{{ _('Usage') }}</h3>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/summary_grid/screenshot.jpg"
-                                                                           title="The Summary Grid"><img
-                              src="./assets/images/help/en/summary_grid/screenshot.jpg" alt="The Summary Grid" class=""></a>
+                                                                           href="{{ramp_server}}/assets/images/help/{{ _('en') }}/summary_grid/screenshot.jpg"
+                                                                           title="{{ _('The Summary Grid') }}"><img
+                              src="{{ramp_server}}/assets/images/help/{{ _('en') }}/summary_grid/screenshot.jpg" alt="{{ _('The Summary Grid') }}" class=""></a>
                             <figcaption class="caption text-right"><p
                                 class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">
                               {{ _('The Summary Grid') }}</p></figcaption>
@@ -282,75 +267,69 @@
                           <div class="clearfix"></div>
                           <h4>{{ _('Sorting') }}</h4>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/summary_grid/sort_button.jpg"
+                                                                           href="{{ramp_server}}/assets/images/help/{{ _('en') }}/summary_grid/sort_button.jpg"
                                                                            title="The Sort Button"><img
-                              src="./assets/images/help/en/summary_grid/sort_button.jpg" alt="The Sort Button" class=""></a>
+                              src="{{ramp_server}}/assets/images/help/{{ _('en') }}/summary_grid/sort_button.jpg" alt="{{ _('The Sort Button') }}" class=""></a>
                             <figcaption class="caption text-right"><p
                                 class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">
                               {{ _('The Sort Button') }}</p></figcaption>
                           </figure>
-                          <p>Select the Sort link at the top of the data grid to sort by field name, descending. Select
-                            the Sort link again to switch the sort to ascending mode.</p>
+                          <p>{{ _('Select the Sort link at the top of the data grid to sort by field name, descending. Select the Sort link again to switch the sort to ascending mode.') }}</p>
 
                           <div class="clearfix"></div>
                           <h4>{{ _('Details') }}</h4>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/summary_grid/details_button.jpg"
+                                                                           href="{{ramp_server}}/assets/images/help/{{ _('en') }}/summary_grid/details_button.jpg"
                                                                            title="The Details Button"><img
-                              src="./assets/images/help/en/summary_grid/details_button.jpg" alt="The Details Button"
+                              src="{{ramp_server}}/assets/images/help/{{ _('en') }}/summary_grid/details_button.jpg" alt="{{ _('The Details Button') }}"
                               class=""></a>
                             <figcaption class="caption text-right"><p
                                 class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">
                               {{ _('The Details Button') }}</p></figcaption>
                           </figure>
-                          <p>Select the Details link next to each data row to display its information in an Info Panel.
-                            This function replicates clicking directly on a map feature.</p>
+                          <p>{{ ('Select the Details link next to each data row to display its information in an Info Panel. This function replicates clicking directly on a map feature.') }}</p>
 
                           <div class="clearfix"></div>
                           <h4>{{ _('Zoom To') }}</h4>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/summary_grid/zoomto_button.jpg"
-                                                                           title="The Zoom To Button"><img
-                              src="./assets/images/help/en/summary_grid/zoomto_button.jpg" alt="The Zoom To Button"
+                                                                           href="{{ramp_server}}/assets/images/help/{{ _('en') }}/summary_grid/zoomto_button.jpg"
+                                                                           title="{{ _('The Zoom To Button') }}"><img
+                              src="{{ramp_server}}/assets/images/help/{{ _('en') }}/summary_grid/zoomto_button.jpg" alt="The Zoom To Button"
                               class=""></a>
                             <figcaption class="caption text-right"><p
                                 class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">{{ _('The Zoom To Button') }}</p></figcaption>
                           </figure>
-                          <p>Every row on the data grid has an option to quickly zoom the map view to that data point.
-                            If the "Zoom To" link is clicked, the map and the data grid will dynamically zoom to that
-                            specific point.</p>
+                          <p>{{ _('Every row on the data grid has an option to quickly zoom the map view to that data point. If the "Zoom To" link is clicked, the map and the data grid will dynamically zoom to that specific point.') }}</p>
 
                           <div class="clearfix"></div>
                           <h4>{{ _('Zoom Back') }}</h4>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/summary_grid/zoomback_button.jpg"
-                                                                           title="The Zoom Back Button"><img
-                              src="./assets/images/help/en/summary_grid/zoomback_button.jpg" alt="{{ _('The Zoom Back Button') }}"
+                                                                           href="{{ramp_server}}/assets/images/help/{{ _('en') }}/summary_grid/zoomback_button.jpg"
+                                                                           title="{{ _('The Zoom Back Button') }}"><img
+                              src="{{ramp_server}}/assets/images/help/{{ _('en') }}/summary_grid/zoomback_button.jpg" alt="{{ _('The Zoom Back Button') }}"
                               class=""></a>
                             <figcaption class="caption text-right"><p
                                 class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">{{ _('The Zoom Back Button') }}</p></figcaption>
                           </figure>
-                          <p>After the "Zoom To" link is clicked, the link will be replaced by a "Zoom Back" link.
-                            Clicking on the "Zoom Back" link will bring the user back to the extent of the map before
-                            the "Zoom To" link was clicked.</p>
+                          <p>{{ _('After the "Zoom To" link is clicked, the link will be replaced by a "Zoom Back" link.  Clicking on the "Zoom Back" link will bring the user back to the extent of the map before  the "Zoom To" link was clicked.') }}</p>
 
                           <div class="clearfix"></div>
                           <h4>{{ _('Pagination') }}</h4>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/summary_grid/pagination.jpg"
-                                                                           title="The Pagination Control"><img
-                              src="./assets/images/help/en/summary_grid/pagination.jpg" alt="{{ _('The Pagination Control') }}"
+                                                                           href="{{ramp_server}}/assets/images/help/{{ _('en') }}/summary_grid/pagination.jpg"
+                                                                           title="{{ _('The Pagination Control') }}"><img
+                              src="{{ramp_server}}/assets/images/help/{{ _('en') }}/summary_grid/pagination.jpg" alt="{{ _('The Pagination Control') }}"
                               class=""></a>
                             <figcaption class="caption text-right"><p
                                 class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">{{ _('The Pagination Control') }}</p></figcaption>
                           </figure>
-                          <p>Use the far left and right arrows to jump to the first or last page, respectively, of the
+                          <p>{% trans %}Use the far left and right arrows to jump to the first or last page, respectively, of the
                             information in the data grid. Use the inner left and right buttons to move back or forward
                             one page at a time. Selecting the Page link will permit you to quickly jump to any page in
                             the data grid listing.</p>
 
                           <p>There is also a record count next to the pagination buttons, which indicates the number of
-                            features currently in the map extent versus the total number of features in the map.</p>
+                            features currently in the map extent versus the total number of features in the map.{% endtrans %}</p>
 
                           <div class="clearfix"></div>
                         </div>
@@ -361,14 +340,13 @@
                     <details class="mrgn-tp-0">
                       <summary class="h5 mrgn-tp-0 mrgn-bttm-md">{{ _('Extended Grid') }}</summary>
                       <div>
-                        <div class="helpSectionBody"><p>The Extended Grid lists detailed information about all the
-                          features that in the current map extent.</p>
+                        <div class="helpSectionBody"><p>{{ _('The Extended Grid lists detailed information about all the features that in the current map extent.') }}</p>
 
                           <h3 class="h5">{{ _('Usage') }}</h3>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/extended_grid/screenshot_1.jpg"
-                                                                           title="The Extended Grid"><img
-                              src="./assets/images/help/en/extended_grid/screenshot_1.jpg" alt="{{ _('The Extended Grid') }}"
+                                                                           href="{{ramp_server}}/assets/images/help/{{ _('en') }}/extended_grid/screenshot_1.jpg"
+                                                                           title="{{ _('The Extended Grid') }}"><img
+                              src="{{ramp_server}}/assets/images/help/{{ _('en') }}/extended_grid/screenshot_1.jpg" alt="{{ _('The Extended Grid') }}"
                               class=""></a>
                             <figcaption class="caption text-right"><p
                                 class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">{{ _('The Extended Grid') }}</p></figcaption>
@@ -376,76 +354,69 @@
                           <div class="clearfix"></div>
                           <h4>{{ _('Full Data Button') }}</h4>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/extended_grid_button.jpg"
-                                                                           title="The Extended Grid Button"><img
-                              src="./assets/images/help/en/extended_grid_button.jpg" alt="{{ _('The Extended Grid Button') }}"
+                                                                           href="{{ramp_server}}/assets/images/help/{{ _('en') }}/extended_grid_button.jpg"
+                                                                           title="{{ _('The Extended Grid Button') }}"><img
+                              src="{{ramp_server}}/assets/images/help/{{ _('en') }}/extended_grid_button.jpg" alt="{{ _('The Extended Grid Button') }}"
                               class=""></a>
                             <figcaption class="caption text-right"><p
                                 class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">{{ _('The Extended Grid Button') }}</p></figcaption>
                           </figure>
-                          <p>Select the "Full Data" button at the top right corner of the Summary Grid to show the
-                            Extended Grid.</p>
+                          <p>{{ _('Select the "Full Data" button at the top right corner of the Summary Grid to show the Extended Grid.') }}</p>
 
                           <div class="clearfix"></div>
                           <h4>{{ _('Data Summary Button') }}</h4>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/data_summary_button.jpg"
-                                                                           title="The Data Summary Button"><img
-                              src="./assets/images/help/en/data_summary_button.jpg" alt="The Data Summary Button"
+                                                                           href="{{ramp_server}}/assets/images/help/{{ _('en') }}/data_summary_button.jpg"
+                                                                           title="{{ _('Data Summary Button') }}"><img
+                              src="{{ramp_server}}/assets/images/help/en/data_summary_button.jpg" alt="{{ _('Data Summary Button') }}"
                               class=""></a>
                             <figcaption class="caption text-right"><p
-                                class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">The Data
-                              Summary Button</p></figcaption>
+                                class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">{{ _('Data Summary Button') }}</p></figcaption>
                           </figure>
-                          <p>Select the "Data Summary" button at the top right corner of the Extended Grid to go back to
-                            the Summary Grid view.</p>
+                          <p>{{ _('Select the "Data Summary" button at the top right corner of the Extended Grid to go back to the Summary Grid view.') }}</p>
 
                           <div class="clearfix"></div>
-                          <h4>Sorting</h4>
+                          <h4>{{ _('Sorting') }}</h4>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/extended_grid/sorting.jpg"
-                                                                           title="The Sorting Button"><img
-                              src="./assets/images/help/en/extended_grid/sorting.jpg" alt="The Sorting Button" class=""></a>
+                                                                           href="{{ramp_server}}/assets/images/help/en/extended_grid/sorting.jpg"
+                                                                           title="{{ _('The Sorting Button') }}"><img
+                              src="{{ramp_server}}/assets/images/help/en/extended_grid/sorting.jpg" alt="{{ _('The Sorting Button') }}" class=""></a>
                             <figcaption class="caption text-right"><p
-                                class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">The
-                              Sorting Button</p></figcaption>
+                                class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">{{ _('The Sorting Button') }}</p></figcaption>
                           </figure>
-                          <p>For any column, selecting the upward arrow will sort the extended grid in ascending order
+                          {% trans %}<p>For any column, selecting the upward arrow will sort the extended grid in ascending order
                             by that column, selecting the downward arrow will sort the grid in descending order by that
-                            column.</p>
+                            column.</p>{% endtrans %}
 
                           <div class="clearfix"></div>
-                          <h4>Details</h4>
+                          <h4>{{ _('Details') }}</h4>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/extended_grid/details_button.jpg"
-                                                                           title="The Details Button"><img
-                              src="./assets/images/help/en/extended_grid/details_button.jpg" alt="The Details Button"
+                                                                           href="{{ramp_server}}/assets/images/help/en/extended_grid/details_button.jpg"
+                                                                           title="{{ _('The Details Button') }}"><img
+                              src="{{ramp_server}}/assets/images/help/en/extended_grid/details_button.jpg" alt="{{ _('The Details Button') }}"
                               class=""></a>
                             <figcaption class="caption text-right"><p
-                                class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">The
-                              Details Button</p></figcaption>
+                                class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">{{ _('The Details Button') }}</p></figcaption>
                           </figure>
-                          <p>Select the Details link next to each data row to display its information in an Info
-                            Panel.</p>
+                          <p>{{ _('Select the Details link next to each data row to display its information in an Info Panel.') }}</p>
 
                           <div class="clearfix"></div>
-                          <h4>Pagination</h4>
+                          <h4>{{ _('Pagination') }}</h4>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/extended_grid/pagination.jpg"
-                                                                           title="The Pagination Controls"><img
-                              src="./assets/images/help/en/extended_grid/pagination.jpg" alt="The Pagination Controls"
+                                                                           href="{{ramp_server}}/assets/images/help/en/extended_grid/pagination.jpg"
+                                                                           title="{{ _('The Pagination Controls') }}"><img
+                              src="{{ramp_server}}/assets/images/help/en/extended_grid/pagination.jpg" alt="{{ _('The Pagination Controls') }}"
                               class=""></a>
                             <figcaption class="caption text-right"><p
-                                class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">The
-                              Pagination Controls</p></figcaption>
+                                class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">{{ _('The Pagination Controls') }}</p></figcaption>
                           </figure>
-                          <p>Use the far left and right arrows to jump to the first or last page, respectively, of the
+                          {% trans %}<p>}Use the far left and right arrows to jump to the first or last page, respectively, of the
                             information in the data grid. Use the inner left and right buttons to move back or forward
                             one page at a time. Selecting the Page link will permit you to quickly jump to any page in
                             the data grid listing.</p>
 
                           <p>There is also a record count next to the pagination buttons, which indicates the number of
-                            features currently in the map extent versus the total number of features in the map.</p>
+                            features currently in the map extent versus the total number of features in the map.</p>{% endtrans %}
 
                           <div class="clearfix"></div>
                         </div>
@@ -454,33 +425,32 @@
                     <div class="clearfix"></div>
                     <!-- extended grid ENDS --><!-- infoPanel BEGINS -->
                     <details class="mrgn-tp-0">
-                      <summary class="h5 mrgn-tp-0 mrgn-bttm-md">Info Panel</summary>
+                      <summary class="h5 mrgn-tp-0 mrgn-bttm-md">{{ _('Info Panel') }}</summary>
                       <div>
-                        <div class="helpSectionBody"><p>The Info Panel displays data associated with a selected
-                          feature.</p>
+                        <div class="helpSectionBody"><p>{{ _('The Info Panel displays data associated with a selected feature.') }}</p>
 
-                          <h3 class="h5">Usage</h3>
+                          <h3 class="h5"{{ ('>Usage') }}</h3>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/help_infopanel.png"
-                                                                           title="The Info Panel"><img
-                              src="./assets/images/help/en/help_infopanel.png" alt="The Info Panel"
+                                                                           href="{{ramp_server}}/assets/images/help/en/help_infopanel.png"
+                                                                           title="{{ _('The Info Panel') }}"><img
+                              src="{{ramp_server}}/assets/images/help/en/help_infopanel.png" alt="{{ _('The Info Panel') }}"
                               class="image-actual"></a>
                             <figcaption class="caption text-right"><p
-                                class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">The Info
-                              Panel</p></figcaption>
+                                class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">{{ _('The Info Panel') }}</p></figcaption>
                           </figure>
-                          <p>Select a feature on the map interface, or select the Details link in the Data Grid. The
+                          {% trans %}<p>Select a feature on the map interface, or select the Details link in the Data Grid. The
                             Info Panel will display information related to the selected feature. Clicking away from the
-                            feature or clicking the arrow in the top left corner of the panel will hide the display.</p>
+                            feature or clicking the arrow in the top left corner of the panel will hide the display.</p>{% endtrans %}
                         </div>
                       </div>
                     </details>
                     <div class="clearfix"></div>
                     <!-- infoPanel ENDS --><!-- accessibility BEGINS -->
                     <details class="mrgn-tp-0">
-                      <summary class="h5 mrgn-tp-0 mrgn-bttm-md">Accessibility</summary>
+                      <summary class="h5 mrgn-tp-0 mrgn-bttm-md">{{ _('Accessibility') }}</summary>
                       <div>
-                        <div class="helpSectionBody"><p>This page is WCAG 2.0 AA compliant.</p><h4>Keyboard
+                        <div class="helpSectionBody">
+                          {% trans %}<p>This page is WCAG 2.0 AA compliant.</p><h4>Keyboard
                           Accessibility</h4>
 
                           <p>Keyboard functionality is provided as an alternative for users who are unable to use a
@@ -498,89 +468,84 @@
                             With the layer handle (6 dots icon) highlighted, use Enter or Spacebar to grab the layer.
                             Grabbed layers are indicated with a dark blue background. With the layer grabbed, use the Up
                             or Down arrow keys to re-order the layers on the map interface. Press Enter or Spacebar
-                            again to release the layer.</p></div>
+                            again to release the layer.</p>{% endtrans %}</div>
                       </div>
                     </details>
                     <div class="clearfix"></div>
                     <!-- accessibility ENDS --><!-- advanced toolbar BEGINS -->
                     <details class="mrgn-tp-0">
-                      <summary class="h5 mrgn-tp-0 mrgn-bttm-md">Advanced Toolbar</summary>
+                      <summary class="h5 mrgn-tp-0 mrgn-bttm-md">{{ _('Advanced Toolbar') }}</summary>
                       <div>
-                        <div class="helpSectionBody"><p>The advanced toolbar provides utilities that can break
-                          accessibility, usually due to their dependance on a mouse-driven input.</p>
+                        <div class="helpSectionBody"><p>{{ _('The advanced toolbar provides utilities that can break accessibility, usually due to their dependance on a mouse-driven input.') }}</p>
 
-                          <h3 class="h5">Usage</h3><h4>Opening the Toolbar</h4>
+                          <h3 class="h5">{{ _('Usage') }}</h3><h4>{{ _('Opening the Toolbar') }}</h4>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/advanced_toolbar/advanced_toolbar_button.jpg"
-                                                                           title="The Toolbar Button"><img
-                              src="./assets/images/help/en/advanced_toolbar/advanced_toolbar_button.jpg"
-                              alt="The Toolbar Button" class=""></a>
+                                                                           href="{{ramp_server}}/assets/images/help/en/advanced_toolbar/advanced_toolbar_button.jpg"
+                                                                           title="{{ _('The Toolbar Button') }}"><img
+                              src="{{ramp_server}}/assets/images/help/en/advanced_toolbar/advanced_toolbar_button.jpg"
+                              alt="{{ _('The Toolbar Button') }}" class=""></a>
                             <figcaption class="caption text-right"><p
-                                class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">The
-                              Toolbar Button</p></figcaption>
+                                class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">{{ _('The Toolbar Button') }}</p></figcaption>
                           </figure>
-                          <p>Select the Advanced button on the main toolbar to open the advanced toolbar. Selecting the
-                            button a second time will close the advanced toolbar and de-activate any active tools.</p>
+                          <p>{{ _('Select the Advanced button on the main toolbar to open the advanced toolbar. Selecting the button a second time will close the advanced toolbar and de-activate any active tools.') }}</p>
 
                           <div class="clearfix"></div>
-                          <h4>Tool Activation</h4>
+                          <h4>{{ _('Tool Activation') }}</h4>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/advanced_toolbar/advanced_toolbar.jpg"
-                                                                           title="The Advanced Toolbar"><img
-                              src="./assets/images/help/en/advanced_toolbar/advanced_toolbar.jpg"
-                              alt="The Advanced Toolbar" class=""></a>
+                                                                           href="{{ramp_server}}/assets/images/help/en/advanced_toolbar/advanced_toolbar.jpg"
+                                                                           title="{{ _('The Advanced Toolbar') }}"><img
+                              src="{{ramp_server}}/assets/images/help/en/advanced_toolbar/advanced_toolbar.jpg"
+                              alt="{{ _('The Advanced Toolbar') }}" class=""></a>
                             <figcaption class="caption text-right"><p
-                                class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">The
-                              Advanced Toolbar</p></figcaption>
+                                class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">{{ _('The Advanced Toolbar') }}</p></figcaption>
                           </figure>
-                          <p>Any tool can be activated by clicking the appropriate button on the advanced toolbar.
+                          {% trans %}<p>Any tool can be activated by clicking the appropriate button on the advanced toolbar.
                             Clicking a second time will de-activate the tool, as will closing the advanced toolbar, or
-                            selecting a new tool.</p>
+                            selecting a new tool.</p>{% endtrans %}
 
                           <div class="clearfix"></div>
-                          <h4>Population Tool</h4>
+                          <h4>{{ _('Population Tool') }}</h4>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/advanced_toolbar/population_tool.jpg"
-                                                                           title="Population Polygon and Result"><img
-                              src="./assets/images/help/en/advanced_toolbar/population_tool.jpg"
-                              alt="Population Polygon and Result" class=""></a>
+                                                                           href="{{ramp_server}}/assets/images/help/en/advanced_toolbar/population_tool.jpg"
+                                                                           title="{{ _('Population Polygon and Result') }}"><img
+                              src="{{ramp_server}}/assets/images/help/en/advanced_toolbar/population_tool.jpg"
+                              alt="{{ _('Population Polygon and Result') }}" class=""></a>
                             <figcaption class="caption text-right"><p
                                 class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">
-                              Population Polygon and Result</p></figcaption>
+                              {{ _('Population Polygon and Result') }}</p></figcaption>
                           </figure>
-                          <p>Select the Population button to activate the population tool. Draw a polygon on the map and
+                          {% trans %}<p>Select the Population button to activate the population tool. Draw a polygon on the map and
                             release the mouse. The population of people inside the polygon will be displayed in the
-                            results window. The Clear button will erase an existing result from the map.</p>
+                            results window. The Clear button will erase an existing result from the map.</p>{% endtrans %}
 
                           <div class="clearfix"></div>
-                          <h4>Buffer Tool</h4>
+                          <h4>{{ _('Buffer Tool') }}</h4>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/advanced_toolbar/buffer_tool.jpg"
-                                                                           title="Buffer Input and Result"><img
-                              src="./assets/images/help/en/advanced_toolbar/buffer_tool.jpg"
-                              alt="Buffer Input and Result" class=""></a>
+                                                                           href="{{ramp_server}}/assets/images/help/en/advanced_toolbar/buffer_tool.jpg"
+                                                                           title="{{ _('Buffer Input and Result') }}"><img
+                              src="{{ramp_server}}/assets/images/help/en/advanced_toolbar/buffer_tool.jpg"
+                              alt="{{ _('Buffer Input and Result') }}" class=""></a>
                             <figcaption class="caption text-right"><p
-                                class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">Buffer
-                              Input and Result</p></figcaption>
+                                class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">{{ _('Buffer Input and Result') }}</p></figcaption>
                           </figure>
-                          <p>Select the Buffer button to activate the buffer tool. Enter a desired buffer size in
+                          {% trans %}<p>Select the Buffer button to activate the buffer tool. Enter a desired buffer size in
                             kilometers in the tool input. Draw a polygon on the map and release the mouse. A buffer of
-                            the desired size will be applied to the polygon and displayed.</p>
+                            the desired size will be applied to the polygon and displayed.</p>{% endtrans %}
 
                           <div class="clearfix"></div>
-                          <h4>Measure Tool</h4>
+                          <h4>{{ _('Measure Tool') }}</h4>
                           <figure class="thumbnail col-md-4 pull-right"><a class="wb-lbx"
-                                                                           href="./assets/images/help/en/advanced_toolbar/measure_tool.jpg"
-                                                                           title="Measurement Polygon and Result"><img
-                              src="./assets/images/help/en/advanced_toolbar/measure_tool.jpg"
-                              alt="Measurement Polygon and Result" class=""></a>
+                                                                           href="{{ramp_server}}/assets/images/help/en/advanced_toolbar/measure_tool.jpg"
+                                                                           title="{{ _('Measurement Polygon and Result') }}"><img
+                              src="{{ramp_server}}/assets/images/help/en/advanced_toolbar/measure_tool.jpg"
+                              alt="{{ _('Measurement Polygon and Result') }}" class=""></a>
                             <figcaption class="caption text-right"><p
                                 class="mrgn-tp-sm mrgn-bttm-sm pstn-bttm-md pstn-rght-md caption-header small">
-                              Measurement Polygon and Result</p></figcaption>
+                              {{ _('Measurement Polygon and Result') }}</p></figcaption>
                           </figure>
-                          <p>Select the Measure button to activate the tool. Draw a polygon on the map and release the
+                          {% trans %}<p>Select the Measure button to activate the tool. Draw a polygon on the map and release the
                             mouse. The area and the circumference of the polygon will be displayed in the results
-                            window.</p>
+                            window.</p>{% endtrans %}
 
                           <div class="clearfix"></div>
                         </div>
@@ -589,18 +554,19 @@
                     <div class="clearfix"></div>
                     <!-- advanced toolbar ENDS --><!-- misc BEGINS -->
                     <details class="mrgn-tp-0">
-                      <summary class="h5 mrgn-tp-0 mrgn-bttm-md">Load Times / Unanticipated Behaviour</summary>
+                      <summary class="h5 mrgn-tp-0 mrgn-bttm-md">{{ _('Load Times / Unanticipated Behaviour') }}</summary>
                       <div>
-                        <div class="helpSectionBody"><p>Load times may vary based on network location and bandwidth
+                        <div class="helpSectionBody">
+                          {% trans %}<p>Load times may vary based on network location and bandwidth
                           availability, and unanticipated behaviour may occur if any map interactions occur before data
                           is fully loaded. Please allow the webpage to load completely before triggering any map
-                          functions.</p>
+                          functions.</p>{% endtrans %}
 
-                          <div class="module-note module-simplify span-"><h3><span class="color-dark">Note</span></h3>
+                          <div class="module-note module-simplify span-"><h3><span class="color-dark">{{ _('Note') }}</span></h3>
 
-                            <p>If the "Loading..." text appears in the lower right corner of map or the data grid
+                            {% trans %}<p>If the "Loading..." text appears in the lower right corner of map or the data grid
                               displays a loading message, please allow the loading indicator to disappear before
-                              triggering any function on the map.</p></div>
+                              triggering any function on the map.</p>{% endtrans %}</div>
                         </div>
                       </div>
                     </details>
@@ -676,9 +642,9 @@
 {% endblock %}
 
 {% block page_extra_scripts %}
-<script type="text/javascript" src="js/lib/lib.min.js"></script>
+<script type="text/javascript" src="{{ramp_server}}/js/lib/lib.min.js"></script>
 <!-- JS RAMP -->
-<script type="text/javascript" src="js/RAMP/RAMP-starter.js"></script>
+<script type="text/javascript" src="{{ramp_server}}/js/RAMP/RAMP-starter.js"></script>
 <!-- !JS RAMP -->
 <!-- ARCGIS API: make sure there is a script tag in the head node of the document to avoid "Cannot read property 'insertBefore' of null" errors caused by urlshortener jQuery plugin -->
 <script src="http://js.arcgis.com/3.10/" type="text/javascript"></script>
